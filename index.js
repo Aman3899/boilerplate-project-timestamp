@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 
 // Root route for frontend
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/views/index.html");
+    res.sendFile(__dirname + "/public/index.html");
 });
 
 // API endpoint for timestamp
