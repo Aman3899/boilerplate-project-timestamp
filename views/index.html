@@ -1,32 +1,50 @@
 <!DOCTYPE html>
-
-<html>
-   <head>
-      <title>Timestamp Microservice | freeCodeCamp.org</title>
-      <link rel="shortcut icon" href="https://cdn.freecodecamp.org/universal/favicons/favicon-32x32.png" type="image/x-icon"/>
-      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-      <link href="style.css" rel="stylesheet" type="text/css">
-   </head>
-
-   <body>
-    <h1>Timestamp Microservice</h1>
-    <hr />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timestamp Microservice</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
     <div class="container">
-      <h2>Example Usage:</h2>
-      <ul>
-        <li><a href="api/2015-12-25">[project url]/api/2015-12-25</a></li>
-        <li><a href="api/1451001600000">[project url]/api/1451001600000</a></li>
-      </ul>
+        <h1>Timestamp Microservice</h1>
+        <p>Enter a date string (e.g., "2025-03-23") or Unix timestamp (e.g., "1742601600000") to get the result.</p>
+        
+        <form id="dateForm">
+            <input type="text" id="dateInput" placeholder="Enter date or timestamp" />
+            <button type="submit">Submit</button>
+        </form>
+        
+        <div id="result">
+            <pre id="output"></pre>
+        </div>
 
-      <h2>Example Output:</h2>
-      <p>
-        <code>{"unix":1451001600000, "utc":"Fri, 25 Dec 2015 00:00:00 GMT"}</code>
-      </p>
+        <h2>Example Usage:</h2>
+        <ul>
+            <li><a href="/api/2025-03-23" target="_blank">/api/2025-03-23</a></li>
+            <li><a href="/api/1742601600000" target="_blank">/api/1742601600000</a></li>
+            <li><a href="/api" target="_blank">/api</a> (current time)</li>
+        </ul>
+
+        <h2>Example Output:</h2>
+        <pre>{"unix": 1742601600000, "utc": "Sun, 23 Mar 2025 00:00:00 GMT"}</pre>
     </div>
-    <div class="footer">
-      <p>
-        By <a href="https://www.freecodecamp.org/">freeCodeCamp.org</a>
-      </p>
-    </div>
-  </body>
+
+    <script>
+        document.getElementById("dateForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const input = document.getElementById("dateInput").value;
+            const url = input ? `/api/${input}` : "/api";
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById("output").textContent = "Error fetching data";
+            }
+        });
+    </script>
+</body>
 </html>
